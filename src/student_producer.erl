@@ -6,7 +6,7 @@ init(StudentsQueue) ->
   listen(StudentsQueue).
 
 listen(StudentsQueue) ->
-  timer:sleep(rand:uniform(7)*10),
+  timer:sleep(rand:uniform(7)*100),
   Student = random_student:random_student(),
   StudentsQueue ! {add_student, Student, self()},
   receive

@@ -1,4 +1,4 @@
-{application, dziekanat,
+{application, deans_office,
  [{description, "A simulation of Dean's office"},
   {vsn, "0.1.0"},
   {registered, []},

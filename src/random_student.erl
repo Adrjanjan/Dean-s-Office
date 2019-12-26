@@ -13,8 +13,8 @@ random_surname(Position) ->
 
 random_case(Position) ->
     lists:nth(1 + Position rem 6,
-	      [zaswiadczenie, pieczatka, warunek, stypendium, skarga,
-	       dziekanaka]).
+	      ['zaswiadczenie', 'pieczatka', 'warunek', 'stypendium', 'skarga',
+	       'urlop dziekanski']).
 
 random_student() ->
       {student, random_name(rand:uniform(20)),

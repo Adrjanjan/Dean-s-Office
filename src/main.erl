@@ -14,10 +14,10 @@ main() ->
     ok.
 
 spawn_deans_office(QueuePid, Start, End, 1) -> 
-    spawn(deans_office, init_assistant, [QueuePid, Start, End]);
+    spawn(deans_office, init_assistant, [QueuePid, Start, End, "Pani nr: 1"]);
 
 spawn_deans_office(QueuePid, Start, End, How_Many_Assistants) when How_Many_Assistants > 1 ->
-    spawn(deans_office, init_assistant, [QueuePid, Start, End]), 
+    spawn(deans_office, init_assistant, [QueuePid, Start, End, "Pani nr: " ++ integer_to_list(How_Many_Assistants)]), 
     spawn_deans_office(QueuePid, Start, End, How_Many_Assistants - 1).
 
 spawn_students(QueuePid) -> 

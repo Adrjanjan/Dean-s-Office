@@ -1,2 +1,4 @@
 *.beam 
 test/example_test.erl
+_build
+rebar.lock
