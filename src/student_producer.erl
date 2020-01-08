@@ -6,7 +6,7 @@ init(StudentsQueue) ->
   listen(StudentsQueue).
 
 listen(StudentsQueue) ->
-  timer:sleep(rand:uniform(7)*100),
+  timer:sleep(rand:uniform(7)*10),
   Student = random_student:random_student(),
   StudentsQueue ! {add_student, Student, self()},
   receive
@@ -15,3 +15,4 @@ listen(StudentsQueue) ->
     deans_office_is_closed ->
       ok
   end.
+  

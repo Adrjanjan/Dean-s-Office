@@ -48,11 +48,11 @@ loop(QueuePid, How_many_minutes, AssistantsName) when How_many_minutes > 0 ->
         queue_is_empty -> 
             Break = rand:uniform(10),
             io:format("Nie ma nikogo w kolejce pani ~p, idzie na kawę przez ~p minut.~n", [AssistantsName, Break]),
-            timer:sleep(Break*100),
+            timer:sleep(Break*10),
             loop(QueuePid, How_many_minutes - Break, AssistantsName)
     end.
 
 
 process_student_request({student, Name, Surname, _Case}, Processing_time, AssistantsName, Message) ->
     io:format(Message, [Name, Surname, AssistantsName, Processing_time]),
-    timer:sleep(Processing_time*100).
+    timer:sleep(Processing_time*10).
