@@ -1,22 +1,22 @@
 # Dean's Office Simulation
 
-Simulaiton of Dean's Office written in Erlang.
+Simulaiton of Dean's Office written in Erlang
 
 ## Getting Started
+Install Rebar3 - https://www.rebar3.org/docs/getting-started
 
-Inside erlang shell run this commands:
+Run 
 ```
-lc([deans_office, main, random_student, student_producer, students_queue, fifo]).
+rebar3 compile
+rebar3 shell
 ```
 and then 
 ```
-main:main().
+main:dziekanat().
 ```
+inside Erlang's shell.
 
 ### Prerequisites
 
-Erlang VM.
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+Erlang VM
+Rebar3
