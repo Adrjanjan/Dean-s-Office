@@ -3,19 +3,19 @@
 -compile(export_all).
 
 check_start(Start) when Start < 800 -> 
-    exit({start, "Godzina nie moze byc ujemna."});
+    exit({start, "Godzina nie moze otwarty przed 8:00."});
 check_start(Start) when Start > 2000 -> 
-    exit({time, "Nie ma godziny pozniejszej niz 24:00"});
+    exit({time, "Dziekant nie może zostać otwarty po 16:00"});
 check_start(_) -> 
     ok.
 
 check_time_difference(Start, End) when Start > End -> 
-    exit({time, "Dziekanat musi sie zamykac tego samego dnia po jego otwarciu."});
+    exit({time, "Dziekanat musi sie zamykac po otwarciu."});
 check_time_difference(_,_) -> 
     ok.
 
 check_end(End) when End > 2000 -> 
-    exit({'end', "Nie ma godziny pozniejszej niz 24:00"});
+    exit({'end', "Dziekanat może pracować maksymalnie do 16:00"});
 check_end(_) ->
      ok.
 
