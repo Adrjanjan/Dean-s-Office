@@ -1,13 +1,13 @@
 -module(students_queue).
 
--export([init_queue/0, listen/2]).
+-export([init_queue/1]).
 
-init_queue() -> 
+init_queue(How_Many) -> 
     io:format("Poczatek kolejki do dziekanatu!~n"),
     BufferArray = fifo:new(),
-    listen(BufferArray, false).
+    listen(BufferArray, false, How_Many).
 
-listen(BufferArray, IsClosed) ->
+listen(BufferArray, IsClosed, How_Many) ->
     receive
         {add_student, {student, Name, Surname, Case}, ProducerPid} ->
             if IsClosed -> 
@@ -21,7 +21,7 @@ listen(BufferArray, IsClosed) ->
                     Case}
                     ), 
                 ProducerPid ! student_added,
-                listen(BA, false)
+                listen(BA, false, How_Many)
             end;
 
         {take_student, DeansAssistantPid} ->
@@ -34,16 +34,23 @@ listen(BufferArray, IsClosed) ->
                     Case} = Student,
                 io:format("Student ~p ~p wszedł do dziekanatu.~n", [Name, Surname]), 
                 DeansAssistantPid ! {Case, Student}, 
-                listen(BA, false);
+                listen(BA, false, How_Many);
 
             true -> 
                 DeansAssistantPid ! queue_is_empty,
-                listen(BufferArray, false)
+                listen(BufferArray, false, How_Many)
             end;
 
-        deans_office_is_closed ->
+        work_finished ->
+            if How_Many - 1 == 0 ->
+                self() ! deans_office_is_closed;
+            true -> 
+                listen(BufferArray, true, How_Many -1)
+            end;
+            
+        deans_office_is_closed -> 
             EmptyBA = clear_queue(BufferArray),
-            listen(EmptyBA, true)
+            listen(EmptyBA, true, 0)
     end.
 
 clear_queue(BufferArray) -> 
